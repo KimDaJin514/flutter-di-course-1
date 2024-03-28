@@ -41,6 +41,8 @@ dependencies:
   freezed_annotation:
   sqflite_common_ffi:
   go_router:
+  injectable:
+  get_it:
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +58,7 @@ dev_dependencies:
   freezed:
   build_runner:
   mockito:
+  injectable_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

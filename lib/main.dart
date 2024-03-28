@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/di/di_setup.dart';
 import 'package:note_app/di/provider_setup.dart';
 import 'package:note_app/presentation/notes/notes_screen.dart';
 import 'package:note_app/router.dart';
@@ -9,14 +10,19 @@ void main() async{
   // 플랫폼 채널의 위젯 바인딩 보장
   WidgetsFlutterBinding.ensureInitialized();
 
-  final providers = await getProviders();
+  // di with provider
+  // final providers = await getProviders();
 
-  runApp(
-    MultiProvider(
-      providers: providers,
-      child: const MyApp(),
-    )
-  );
+  // runApp(
+  //   MultiProvider(
+  //     providers: providers,
+  //     child: const MyApp(),
+  //   )
+  // );
+
+  // di with get_it, injectable
+  await configureDependencies();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
