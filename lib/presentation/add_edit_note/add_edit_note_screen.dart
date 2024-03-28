@@ -35,13 +35,14 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
   void initState() {
     super.initState();
 
-    if (widget.note != null) {
-      _titleCtrl.text = widget.note!.title;
-      _contentCtrl.text = widget.note!.content;
-    }
-
     Future.microtask(() {
       final viewModel = context.read<AddEditNoteViewModel>();
+
+      if (widget.note != null) {
+        _titleCtrl.text = widget.note!.title;
+        _contentCtrl.text = widget.note!.content;
+        viewModel.onEvent(AddEditNoteEvent.changeColor(widget.note!.color));
+      }
 
       _streamSubscription = viewModel.eventStream.listen((event) {
         switch(event) {
