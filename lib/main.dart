@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/di/provider_setup.dart';
 import 'package:note_app/presentation/notes/notes_screen.dart';
+import 'package:note_app/router.dart';
 import 'package:note_app/ui/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.white,
@@ -43,7 +45,6 @@ class MyApp extends StatelessWidget {
         ),
         unselectedWidgetColor: Colors.white,
       ),
-      home: const NotesScreen(),
     );
   }
 }

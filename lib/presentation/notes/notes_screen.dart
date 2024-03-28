@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_app/domain/model/note.dart';
 import 'package:note_app/domain/respository/note_repository.dart';
 import 'package:note_app/domain/util/note_order.dart';
@@ -38,17 +41,7 @@ class NotesScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          bool? isSaved = await Navigator.push(context, MaterialPageRoute(
-            builder: (context) {
-              final repository = context.read<NoteRepository>();
-              final viewModel = AddEditNoteViewModel(repository);
-
-              return ChangeNotifierProvider(
-                create: (_) => viewModel,
-                child: const AddEditNoteScreen(),
-              );
-            },
-          ));
+          bool? isSaved = await context.push('/add_note');
 
           if (isSaved != null && isSaved) {
             viewModel.onEvent(const NotesEvent.loadNotes());
@@ -73,17 +66,12 @@ class NotesScreen extends StatelessWidget {
           ...state.notes.map(
             (note) => GestureDetector(
               onTap: () async {
-                bool? isSaved = await Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    final repository = context.read<NoteRepository>();
-                    final viewModel = AddEditNoteViewModel(repository);
+                final uri = Uri(
+                  path: '/edit_note',
+                  queryParameters: {'note': jsonEncode(note.toJson())}
+                );
 
-                    return ChangeNotifierProvider(
-                      create: (_) => viewModel,
-                      child: AddEditNoteScreen(note: note),
-                    );
-                  },
-                ));
+                bool? isSaved = await context.push(uri.toString());
 
                 if (isSaved != null && isSaved) {
                   viewModel.onEvent(const NotesEvent.loadNotes());

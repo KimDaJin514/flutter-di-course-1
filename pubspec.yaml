@@ -40,6 +40,7 @@ dependencies:
   json_annotation:
   freezed_annotation:
   sqflite_common_ffi:
+  go_router:
 
 dev_dependencies:
   flutter_test:
